@@ -18,7 +18,9 @@ export default function Home({ fact }: { fact: any }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>{fact}</div>
+      <div className="max-w-[1200px] px-10  mt-20 mx-auto">
+        <div className="text-center text-4xl text-zinc-900">{fact}</div>
+      </div>
     </>
   );
 }
