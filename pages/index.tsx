@@ -1,32 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import { useState } from "react";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 
 import prisma from "../lib/prisma";
 
 const inter = Inter({ subsets: ["latin"] });
+dayjs.extend(advancedFormat);
 
 export default function Home({ fact }: { fact: any }) {
-  async function generate() {
-    try {
-      const response = await fetch("/api/get-fact", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
-      }
-    } catch (error: any) {
-      console.error(error);
-    }
-  }
-
   return (
     <>
       <Head>
@@ -35,7 +18,6 @@ export default function Home({ fact }: { fact: any }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <button onClick={() => generate()}>Generate fact</button> */}
       <div>{fact}</div>
     </>
   );

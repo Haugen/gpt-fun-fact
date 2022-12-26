@@ -1,7 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 
 import prisma from "../../lib/prisma";
+
+dayjs.extend(advancedFormat);
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -32,14 +36,16 @@ export default async function handler(
   }
 
   try {
+    const now = new Date();
+    const date = dayjs(now).format("MMMM Do");
+
     const completion = await openai.createCompletion({
       max_tokens: 40,
       model: "text-davinci-003",
-      prompt:
-        'Give me a short fun, positive and uplifting fact about a historical event that happened on December 30th. Start the text with "On December 30th", followed by the year and then the fact. Make your response short, less than 250 letters.',
+      prompt: `Give me a short fun, positive and uplifting fact about a historical event that happened on ${date}. Start the text with "On ${date}", followed by the year and then the fact. Make your response short, less than 250 letters.`,
       temperature: 0.6,
     });
-    const fact = await prisma.fact.create({
+    await prisma.fact.create({
       data: {
         text: completion.data?.choices[0]?.text?.substring(2) as string,
       },
