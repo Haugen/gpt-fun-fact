@@ -3,18 +3,16 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import { useState } from "react";
 
+import prisma from "../lib/prisma";
+
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-  const [result, setResult] = useState();
-
+export default function Home({ fact }: { fact: any }) {
   async function generate() {
     try {
       const response = await fetch("/api/get-fact", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       const data = await response.json();
@@ -24,8 +22,6 @@ export default function Home() {
           new Error(`Request failed with status ${response.status}`)
         );
       }
-
-      setResult(data.result);
     } catch (error: any) {
       console.error(error);
     }
@@ -40,8 +36,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>App!</div>
-      <button onClick={() => generate()}>Generate fact</button>
-      <div>{result}</div>
+      {/* <button onClick={() => generate()}>Generate fact</button> */}
+      <div>{fact}</div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const fact = await prisma.fact.findFirst({ orderBy: { createdAt: "desc" } });
+
+  return {
+    props: {
+      fact: fact?.text,
+    },
+  };
 }

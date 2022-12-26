@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
 
+import prisma from "../../lib/prisma";
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -37,10 +39,12 @@ export default async function handler(
         'Give me a short fun, positive and uplifting fact about a historical event that happened on December 30th. Start the text with "On December 30th", followed by the year and then the fact. Make your response short, less than 250 letters.',
       temperature: 0.6,
     });
-    // Save in DB?
-    // res.status(200).json({ result: "Successfully generated fact" });
-    // console.log(completion.data.choices);
-    res.status(200).json({ result: completion.data.choices[0].text as string });
+    const fact = await prisma.fact.create({
+      data: {
+        text: completion.data?.choices[0]?.text?.substring(2) as string,
+      },
+    });
+    res.status(200).json({ result: "Successfully added fact to db" });
   } catch (error: any) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
