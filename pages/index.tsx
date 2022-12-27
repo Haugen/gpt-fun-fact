@@ -25,7 +25,7 @@ export default function Home({ fact }: { fact: any }) {
         <div className="max-w-[960px] h-full py-8 md:py-16 px-8 mx-auto flex flex-col justify-between">
           <div className="text-center">
             <h1 className="font-semibold text-xl">Daily History Fix</h1>
-            <p className="text-sm text-zinc-600">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Daily{" "}
               <a href="https://openai.com/" target="_blank" rel="noreferrer">
                 OpenAI
