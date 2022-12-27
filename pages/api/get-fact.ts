@@ -40,10 +40,10 @@ export default async function handler(
     const date = dayjs(now).format("MMMM Do");
 
     const completion = await openai.createCompletion({
-      max_tokens: 40,
+      max_tokens: 80,
       model: "text-davinci-003",
-      prompt: `Give me a short fun, positive and uplifting fact about a historical event that happened on ${date}. Start the text with "On ${date}", followed by the year and then the fact. Make your response short, less than 250 letters.`,
-      temperature: 0.6,
+      prompt: `Make up a fun and unexpected historical event that could have happened on ${date}. Start the text with "On ${date}", followed by the year and then the fact. Make sure that the fact is not true. Make your response short, less than 250 letters.`,
+      temperature: 1,
     });
     await prisma.fact.create({
       data: {
