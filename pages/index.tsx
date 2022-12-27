@@ -13,7 +13,7 @@ export default function Home({ fact }: { fact: any }) {
   return (
     <>
       <Head>
-        <title>Daily Historical Fix</title>
+        <title>Daily History Fix</title>
         <meta
           name="description"
           content="AI generated false historical facts"
@@ -24,10 +24,14 @@ export default function Home({ fact }: { fact: any }) {
       <div className="w-screen h-screen">
         <div className="max-w-[960px] h-full py-8 md:py-16 px-8 mx-auto flex flex-col justify-between">
           <div className="text-center">
-            <h1 className="font-semibold text-xl">Daily Historical Fix</h1>
+            <h1 className="font-semibold text-xl">Daily History Fix</h1>
             <p className="text-sm text-zinc-600">
-              Daily OpenAI generated historical events, that could have happened
-              on a different timeline?
+              Daily{" "}
+              <a href="https://openai.com/" target="_blank" rel="noreferrer">
+                OpenAI
+              </a>{" "}
+              generated historical events, that could have happened on a
+              different timeline?
             </p>
           </div>
           <div className="text-center">
@@ -44,7 +48,7 @@ export default function Home({ fact }: { fact: any }) {
               </a>
             </p>
           </div>
-          <div className="text-center text-sm text-zinc-600">
+          <div className="text-center text-sm text-zinc-500">
             <p>
               Made by{" "}
               <a

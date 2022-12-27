@@ -7,5 +7,5 @@ body {
 }
 
 a {
-  @apply border-b border-current pb-0.5;
+  @apply underline;
 }
