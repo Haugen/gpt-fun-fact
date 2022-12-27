@@ -41,7 +41,7 @@ export default function Home({ fact }: { fact: any }) {
             </p>
           </div>
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
               {fact}
             </h2>
             <p className="text-lg md:text-xl lg:text-2xl mt-6">
