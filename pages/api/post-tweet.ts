@@ -14,7 +14,7 @@ type ErrorResponse = {
 };
 type Response = SuccessResponse | ErrorResponse;
 
-async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
+async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
   try {
     const T = new Twit({
       consumer_key: process.env.TWITTER_API_KEY as string,
