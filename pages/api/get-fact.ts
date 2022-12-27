@@ -57,11 +57,9 @@ export default async function handler(
       res.status(error.response.status).json(error.response.data);
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
-      res.status(500).json({
-        error: {
-          message: "An error occurred during your request.",
-        },
-      });
+      res
+        .status(500)
+        .json({ error: { message: "An error occurred during your request." } });
     }
   }
 }

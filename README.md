@@ -6,3 +6,4 @@ Hobby project to explore the OpenAI API.
 - API route to propt the OpenAI API and save the response in a db.
 - Prisma for ORM.
 - db hosting at Planetscale.
+- Automatic daily tweets of the facts.
