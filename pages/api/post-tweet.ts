@@ -28,7 +28,9 @@ async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
 
     if (!fact) throw new Error("No fact found in db");
 
-    T.post("statuses/update", { status: fact.text }, (err, reply) => {
+    const tweetText = fact.text + "\n\n#FakeNews #OpenAI";
+
+    T.post("statuses/update", { status: tweetText }, (err, reply) => {
       if (err) {
         console.log("Error: ", err.message);
       } else {

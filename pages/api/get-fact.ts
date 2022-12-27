@@ -40,7 +40,7 @@ async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
     const completion = await openai.createCompletion({
       max_tokens: 80,
       model: "text-davinci-003",
-      prompt: `Make up a fun and unexpected historical fact that could have happened on ${date}. It could be about some event, accidents, sports, entertainment, local events, science, discoveries, nature, philosophy, the universe or something completely random. Just make it fun. It's suppose to make people smile. The year of the fact should be somewhere between 1000 B.C and 2021. Start the text with "On ${date}", followed by the year and then the fact. Make sure that the fact is not true. Make your response short, less than 250 letters.`,
+      prompt: `Make up a fun and unexpected historical fact that could have happened on ${date}. It could be about some event, accidents, sports, entertainment, local events, science, discoveries, nature, philosophy, the universe or something completely random. Just make it fun. It's suppose to make people smile. The year of the fact should be somewhere between 1200 and 2021. Start the text with "On ${date}", followed by the year and then the fact. Make sure that the fact is not true. Make your response short, less than 250 letters.`,
       temperature: 1,
     });
     await prisma.fact.create({
