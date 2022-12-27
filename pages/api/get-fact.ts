@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
 import dayjs from "dayjs";
+import { verifySignature } from "@upstash/qstash/nextjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
 import prisma from "../../lib/prisma";
@@ -22,10 +23,7 @@ type ErrorResponse = {
 };
 type Response = SuccessResponse | ErrorResponse;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Response>
-) {
+async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -63,3 +61,14 @@ export default async function handler(
     }
   }
 }
+
+export default verifySignature(handler, {
+  currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY,
+  nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY,
+});
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
