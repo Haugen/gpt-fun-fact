@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
 import prisma from "../lib/prisma";
+import Logo from "../components/Logo";
 
 const inter = Inter({ subsets: ["latin"] });
 dayjs.extend(advancedFormat);
@@ -22,9 +23,14 @@ export default function Home({ fact }: { fact: any }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-screen h-screen">
-        <div className="max-w-[960px] h-full py-8 md:py-16 px-8 mx-auto flex flex-col justify-between">
+        <div className="max-w-[1100px] h-full py-8 md:py-16 px-8 mx-auto flex flex-col justify-between">
           <div className="text-center">
-            <h1 className="font-semibold text-xl">Daily History Fix</h1>
+            <div className="flex items-center mx-auto justify-center mb-4">
+              <div className="w-10 h-10 mr-4">
+                <Logo />
+              </div>
+              <h1 className="font-semibold text-xl">Daily History Fix</h1>
+            </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Daily{" "}
               <a href="https://openai.com/" target="_blank" rel="noreferrer">
@@ -35,10 +41,10 @@ export default function Home({ fact }: { fact: any }) {
             </p>
           </div>
           <div className="text-center">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
               {fact}
             </h2>
-            <p className="text-lg mt-4">
+            <p className="text-lg md:text-xl lg:text-2xl mt-6">
               <a
                 href="https://twitter.com/GPTHistoryFix"
                 target="_blank"
