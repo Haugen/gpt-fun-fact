@@ -85,7 +85,7 @@ export const eventCategory = [
   "a famous author",
   "a famous scientist",
   "a famous philosopher",
-  "a famour athlete",
+  "a famous athlete",
   "a fictional character",
   "the ocean",
   "mountains",
