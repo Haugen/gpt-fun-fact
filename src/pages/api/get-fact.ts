@@ -5,6 +5,10 @@ import { verifySignature } from "@upstash/qstash/nextjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
 import prisma from "../../lib/prisma";
+import {
+  getAdjectivesString,
+  getEventCategory,
+} from "../../lib/prompt-content";
 
 dayjs.extend(advancedFormat);
 
@@ -36,18 +40,22 @@ async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
   try {
     const now = new Date();
     const date = dayjs(now).format("MMMM Do");
+    const adjectives = getAdjectivesString();
+    const eventCategory = getEventCategory();
 
     const completion = await openai.createCompletion({
       max_tokens: 200,
       model: "text-davinci-003",
-      prompt: `Make up a fun and unexpected historical fact that could have happened on ${date}. It could be about some event, accidents, sports, entertainment, local events, science, discoveries, nature, philosophy, the universe or something completely random. Just make it fun. It's suppose to make people smile. The year of the fact should be somewhere between 1200 and 2021. Start the text with "On ${date}", followed by the year and then the fact. Make sure that the fact is not true. Make your response short, less than 250 letters.`,
+      prompt: `Make up a ${adjectives} historical fact about ${eventCategory} that could have happened on ${date}. The year of the fact should be somewhere between 1400 and 2021. Start the text with "On ${date}", followed by the year and then the fact. Make sure that the fact is not true. Make your response short, less than 240 characters.`,
       temperature: 0.9,
     });
+
     await prisma.fact.create({
       data: {
         text: completion.data?.choices[0]?.text?.substring(2) as string,
       },
     });
+
     res.status(200).json({ result: "Successfully added fact to db" });
   } catch (error: any) {
     if (error.response) {
