@@ -33,12 +33,12 @@ async function handler(_: NextApiRequest, res: NextApiResponse<Response>) {
     T.post("statuses/update", { status: tweetText }, (err, reply) => {
       if (err) {
         console.log("Error: ", err.message);
+        res.status(500).json({ error: { message: err.message } });
       } else {
         console.log("Success: ", reply);
+        res.status(200).json({ result: "Twit twit" });
       }
     });
-
-    res.status(200).json({ result: "Twit twit" });
   } catch (error: any) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
